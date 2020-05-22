@@ -100,6 +100,11 @@ accuracy = [go.Bar(x=['NaiveBayes','Decision tree','Random forest'],y=[NB_acc,tr
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+colors = {
+    'background': '#FFFDBE',
+    'text': '#4F4F4F'
+}
+
 app.layout = html.Div(children=[
 
     html.H1(children='Dashboard'),
@@ -126,7 +131,28 @@ app.layout = html.Div(children=[
             }
         }
     ),
+    dcc.Input(id='Input review', value='initial value', type='text'),
+    dcc.Graph(id='estimate'),
 ])
+@app.callback(
+    Output(component_id='estimate', component_property='figure'),
+    [Input(component_id='Input review', component_property='text')])
+def update_figure(review):
+    review = cleanTxt(review)
+    review = stemmer(review)
+    n_prd = NB.predict(review)
+    t_prd = tree.predict(review)
+    r_prd = rfc.predict(review)
+    estimation = [go.Bar(x=cnts['NaiveBayes','Decision tree','Random forest'],y=[n_prd,t_prd,r_prd])]
+
+    return {
+        'data': estimation,
+        'layout': dict(
+            xaxis={'title': 'Model used'},
+            yaxis={'title': 'Prediction'},
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+        )
+    }
 
 if __name__ == '__main__':
     app.run_server(debug=True)
