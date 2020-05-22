@@ -3,6 +3,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import pandas as pd
+from dash.dependencies import Input, Output
 
 df = pd.read_excel('https://github.com/SGE616/xcelerator_Sentiment_analysis_project/raw/master/Datafiniti_Hotel_Reviews.xlsx')
 rev = df[['reviews.title','reviews.text','reviews.rating']]
