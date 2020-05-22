@@ -138,7 +138,7 @@ app.layout = html.Div(children=[
 ])
 @app.callback(
     Output(component_id='estimate', component_property='figure'),
-    [Input(component_id='Input review', component_property='text')])
+    [Input(component_id='Input review', component_property='value')])
 def update_figure(review):
     review = cleanTxt(review)
     review = stemmer(review)
