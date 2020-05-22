@@ -145,7 +145,7 @@ def update_figure(review):
     n_prd = NB.predict([review])
     t_prd = tree.predict([review])
     r_prd = rfc.predict([review])
-    estimation = [go.Bar(x=cnts['NaiveBayes','Decision tree','Random forest'],y=[n_prd,t_prd,r_prd])]
+    estimation = [go.Bar(x=['NaiveBayes','Decision tree','Random forest'],y=[n_prd,t_prd,r_prd])]
 
     return {
         'data': estimation,
