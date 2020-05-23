@@ -133,7 +133,7 @@ app.layout = html.Div(children=[
         }
     ),
     dcc.Graph(id='estimate'),
-    dcc.Input(id='Input review', value='initial value', type='text'),
+    dcc.Input(id='Input review', value='initial value', type='text', placeholder="Enter review", debounce=True),
     
 ])
 @app.callback(
@@ -152,6 +152,7 @@ def update_figure(review):
         'layout': dict(
             xaxis={'title': 'Model used'},
             yaxis={'title': 'Prediction'},
+				title = 'Review Prediction'
         )
     }
 
