@@ -108,10 +108,10 @@ colors = {
 
 app.layout = html.Div(children=[
 
-    html.H1(children='Dashboard'),
+    html.H1(children='Dashboard for ML visualizations'),
 
     html.Div(children='''
-        Dash: A web application framework for Python.
+        Project by Abhishek, Shayon and Shravani
     '''),
 
     dcc.Graph(
