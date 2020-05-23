@@ -101,10 +101,6 @@ accuracy = [go.Bar(x=['NaiveBayes','Decision tree','Random forest'],y=[NB_acc,tr
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-colors = {
-    'background': '#FFFDBE',
-    'text': '#4F4F4F'
-}
 
 app.layout = html.Div(children=[
 
