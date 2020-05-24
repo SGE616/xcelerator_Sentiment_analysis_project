@@ -132,8 +132,8 @@ app.layout = html.Div(children=[
         figure={
 			'data': accuracy,
 			'layout': dict(
-				xaxis={'title': 'Model','tickvals' : [1,2,3], 'ticktext': ['Bad','Neutral','Good']},
-				yaxis={'title': 'Accuracy'},
+				xaxis={'title': 'Model'},
+				yaxis={'title': 'Accuracy','tickvals' : [1,2,3], 'ticktext': ['Bad','Neutral','Good']},
 				title = 'Accuracy of different models'
 			)
 		}
@@ -156,8 +156,8 @@ def update_figure(review):
     return {
         'data': estimation,
         'layout': dict(
-            xaxis={'title': 'Model used','tickvals' : [1,2,3], 'ticktext': ['Bad','Neutral','Good']},
-            yaxis={'title': 'Prediction'},
+            xaxis={'title': 'Model used'},
+            yaxis={'title': 'Prediction','tickvals' : [1,2,3], 'ticktext': ['Bad','Neutral','Good']},
 				title = 'Review Prediction'
         )
     }
