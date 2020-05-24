@@ -8,7 +8,13 @@ from dash.dependencies import Input, Output
 df = pd.read_excel('https://github.com/SGE616/xcelerator_Sentiment_analysis_project/raw/master/Datafiniti_Hotel_Reviews.xlsx')
 rev = df[['reviews.title','reviews.text','reviews.rating']]
 def round_of_rating(number):
-    return round(number)
+    if number < 1.67:
+      rating = 1
+    elif number >= 1.67 and number < 3.33:
+      rating = 2
+    elif number >= 3.33:
+      rating = 3
+    return rating
 rev.loc[:,'reviews.rating'] = rev.loc[:,'reviews.rating'].copy().apply(round_of_rating)
 cnts = rev.groupby('reviews.rating').count()
 cnts['reviews.rating'] = cnts.index
@@ -113,23 +119,27 @@ app.layout = html.Div(children=[
     dcc.Graph(
         id='Reviews Breakup',
         figure={
-            'data': counts,
-            'layout': {
-                'title': 'Reviews Break-up'
-            }
-        }
+			'data': counts,
+			'layout': dict(
+				xaxis={'title': 'Sentiment','tickvals' : [1,2,3], 'ticktext': ['Bad','Neutral','Good']},
+				yaxis={'title': 'Number'},
+				title = 'Sentiment Break-up'
+			)
+		}
     ),
     dcc.Graph(
         id='Accuracy',
         figure={
-            'data': accuracy,
-            'layout': {
-                'title': 'Accuracy graph'
-            }
-        }
+			'data': accuracy,
+			'layout': dict(
+				xaxis={'title': 'Model','tickvals' : [1,2,3], 'ticktext': ['Bad','Neutral','Good']},
+				yaxis={'title': 'Accuracy'},
+				title = 'Accuracy of different models'
+			)
+		}
     ),
     dcc.Graph(id='estimate'),
-    dcc.Input(id='Input review', value='initial value', type='text', placeholder="Enter review", debounce=True),
+    dcc.Input(id='Input review', value='This is a default review, replace this.', type='text', placeholder="Enter review", debounce=True),
     
 ])
 @app.callback(
@@ -146,7 +156,7 @@ def update_figure(review):
     return {
         'data': estimation,
         'layout': dict(
-            xaxis={'title': 'Model used'},
+            xaxis={'title': 'Model used','tickvals' : [1,2,3], 'ticktext': ['Bad','Neutral','Good']},
             yaxis={'title': 'Prediction'},
 				title = 'Review Prediction'
         )
